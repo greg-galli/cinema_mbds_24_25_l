@@ -1,7 +1,7 @@
 package fr.mbds.cinema.controllers;
 
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.web.bind.annotation.RestController;
 
-@RepositoryRestResource
+@RestController
 public class HallController {
 }

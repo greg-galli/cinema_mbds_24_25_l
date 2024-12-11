@@ -1,5 +1,9 @@
 package fr.mbds.cinema.entitites;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -13,6 +17,7 @@ import java.util.List;
 @Getter
 @Builder
 @ToString
+//@JsonIgnoreProperties(value = { "movie" ,"hibernateLazyInitializer", "handler" }, allowSetters = true)
 public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +33,9 @@ public class Movie {
 
     private String posterFileName;
 
-    @OneToMany(mappedBy = "movie" )
+//    @JsonBackReference : on peut utiliser ça mais c'est moins "précis" que @JsonIgnoreProperties
+//    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id") : on peut utiliser ça mais c'est moins "précis" que @JsonIgnoreProperties
+    @JsonIgnoreProperties("movie")
+    @OneToMany(mappedBy = "movie")
     private List<Session> sessions;
 }
